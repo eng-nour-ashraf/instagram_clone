@@ -1,0 +1,47 @@
+name: instagram_clone
+description: A new Flutter project.
+version: 1.0.0+1
+publish_to: none
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  get:
+  get_storage:
+  logger:
+  dio_http_cache:
+  dio:
+  url_launcher:
+  image_picker:
+  share_plus:
+  flutter_spinkit:
+  path_provider:
+  flutter:
+    sdk: flutter
+  firebase_core: ^2.10.0
+  firebase_auth: ^4.4.2
+  cloud_firestore: ^4.5.2
+  firebase_storage: ^11.1.1
+  flutter_svg:
+  uuid: ^3.0.7
+  cached_network_image: ^3.2.3
+
+dev_dependencies:
+  flutter_lints: 2.0.1
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/fonts/
+    - assets/ca/
+
+  fonts:
+    - family: URW
+      fonts:
+        - asset: assets/fonts/urw/URW-DIN-Arabic.ttf
+
