@@ -20,4 +20,9 @@ class LocalKeys {
   static const gallery = 'gallery';
   static const camera = 'camera';
   static const cancel = 'cancel';
+  static const delete = 'delete';
+  static const deleteConfirmMsg = 'deleteConfirmMsg';
+  static const searchUsers = 'searchUsers';
+  static const noUsers = 'noUsers';
+  static const noComments = 'noComments';
 }

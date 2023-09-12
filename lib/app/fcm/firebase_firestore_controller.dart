@@ -43,7 +43,18 @@ class FirebaseFireStoreController {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> onGetPosts() {
-    return fireStore.collection(collectionPosts).orderBy('createdAt').snapshots();
+    return fireStore
+        .collection(collectionPosts)
+        .orderBy('createdAt')
+        .snapshots();
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> onSearchUsers(
+      {required String searchKeyWord}) {
+    return fireStore
+        .collection(collectionUsers)
+        .where('username', isGreaterThanOrEqualTo: searchKeyWord)
+        .get();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> onGetPostComments(
@@ -51,7 +62,8 @@ class FirebaseFireStoreController {
     return fireStore
         .collection(collectionPosts)
         .doc(postId)
-        .collection(collectionComments).orderBy('createdAt')
+        .collection(collectionComments)
+        .orderBy('createdAt')
         .snapshots();
   }
 
@@ -74,7 +86,8 @@ class FirebaseFireStoreController {
             DateTime(now.year, now.month, now.day).toString().split(' ')[0],
         postUrl: postUrl,
         profImage: profImage,
-        createdAt: Timestamp.now(), commentLen: 0);
+        createdAt: Timestamp.now(),
+        commentLen: 0);
 
     return await fireStore
         .collection(collectionPosts)
@@ -89,6 +102,12 @@ class FirebaseFireStoreController {
         .collection(collectionPosts)
         .doc(fcmPostModel.postId)
         .update(fcmPostModel.toJson());
+  }
+
+  Future<void> onDeletePost({
+    required String postId,
+  }) async {
+    return await fireStore.collection(collectionPosts).doc(postId).delete();
   }
 
   Future<void> onUploadComments({

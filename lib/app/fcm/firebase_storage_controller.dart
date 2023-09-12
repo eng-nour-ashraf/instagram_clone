@@ -21,7 +21,7 @@ class FirebaseStorageController {
     return await snapshot.ref.getDownloadURL();
   }
 
-  // Adding profile Pic to firebase storage
+  // Adding Post Pic to firebase storage
   Future<String> onUploadPostToStorage({required Uint8List file,required String uid,required String postId}) async {
     Reference ref =
     _storage.ref().child(_postFolder).child(uid).child(postId);
@@ -32,5 +32,10 @@ class FirebaseStorageController {
 
     TaskSnapshot snapshot = await uploadTask;
     return await snapshot.ref.getDownloadURL();
+  }
+
+  // Delete Post Pic From firebase storage
+  Future<void> onDeletePostImgFromStorage({required String uid,required String postId}) async {
+    return await _storage.ref().child(_postFolder).child(uid).child(postId).delete();
   }
 }

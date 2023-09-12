@@ -23,4 +23,9 @@ final Map<String, String> en = {
   LocalKeys.gallery: 'Gallery',
   LocalKeys.camera: 'Camera',
   LocalKeys.cancel: 'Cancel',
+  LocalKeys.delete: 'Delete',
+  LocalKeys.deleteConfirmMsg: 'Are You Sure You Want To Delete This Post ?',
+  LocalKeys.searchUsers: 'Search User!',
+  LocalKeys.noComments: 'No Comments',
+  LocalKeys.noUsers: 'No Users',
 };

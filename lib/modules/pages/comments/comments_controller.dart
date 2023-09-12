@@ -34,6 +34,9 @@ class CommentsController extends gt.GetxController {
   TextEditingController commentEditingController = TextEditingController();
   User? currentUser;
   FCMUserModel? currentUserData;
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? onGetCommentsStream;
+  List<FCMPostCommentModel> commentList = [];
+  FCMPostModel? postModel;
 
   //***************************************************************************************************************
 
@@ -41,11 +44,6 @@ class CommentsController extends gt.GetxController {
 
   String gtXIDCommentsList = 'Comments-CommentsList';
   String gtXIDCommentsTextField = 'Comments-CommentsTextField';
-
-  StreamSubscription<QuerySnapshot<Map<String, dynamic>>>? onGetCommentsStream;
-
-  List<FCMPostCommentModel> commentList = [];
-  FCMPostModel? postModel;
 
   //***************************************************************************************************************
 

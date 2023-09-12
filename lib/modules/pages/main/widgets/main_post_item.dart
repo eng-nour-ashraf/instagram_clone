@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:instagram_clone/app/fcm/models/fcm_post_model.dart';
 import 'package:instagram_clone/modules/pages/main/main_controller.dart';
+import '../../../../app/models/dropdown_model.dart';
 import '../../../general_widgets/app_loading.dart';
 
 class MainPostItem extends StatelessWidget {
@@ -33,12 +35,12 @@ class MainPostItem extends StatelessWidget {
                         fit: BoxFit.fill,
                         width: 35,
                         height: 35,
-                        placeholder: (context, url) => Column(
+                        placeholder: (context, url) => const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
+                              children: [
                                 AppLoadingWidget(
                                   size: 35,
                                   color: Colors.black,
@@ -70,9 +72,47 @@ class MainPostItem extends StatelessWidget {
                       ),
                     ),
                     controller.currentUser!.uid == fcmPostModel.uid
-                        ? IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.more_vert),
+                        ?
+                        // DropdownButton<String>(
+                        //         icon: const Icon(Icons.more_vert),
+                        //         items: items.map((String items) {
+                        //           return DropdownMenuItem(
+                        //             value: items,
+                        //             child: Text(items),
+                        //           );
+                        //         }).toList(),
+                        //         onChanged: (Object? value) {},
+                        //       )
+                        DropdownButton2<int>(
+                            customButton: const Icon(Icons.more_vert),
+                            items:
+                                controller.popUpMenu.map((DropDownModel item) {
+                              return DropdownMenuItem(
+                                value: item.id,
+                                child: Row(
+                                  children: [
+                                    Icon(item.icon),
+                                    const SizedBox(width: 5,),
+                                    Expanded(
+                                        child: Text(
+                                      item.text,
+                                      style:
+                                          const TextStyle(color: Colors.black),
+                                    )),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (value) => controller.onPopMenuPress(popId: value,postId: fcmPostModel.postId),
+                            dropdownStyleData: DropdownStyleData(
+                              width: 160,
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: Colors.white,
+                              ),
+                              offset: const Offset(0, 8),
+                            ),
                           )
                         : Container(),
                   ],
@@ -90,12 +130,12 @@ class MainPostItem extends StatelessWidget {
                       height:
                           controller.utilsController.onGetHigh(dividedBy: 2.5),
                       width: double.infinity,
-                      placeholder: (context, url) => Column(
+                      placeholder: (context, url) => const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               AppLoadingWidget(
                                 size: 65,
                                 color: Colors.black,
@@ -127,7 +167,8 @@ class MainPostItem extends StatelessWidget {
                     scale: controller.likeScale,
                     duration: const Duration(milliseconds: 400),
                     child: IconButton(
-                        icon: fcmPostModel.likes.contains(controller.currentUser!.uid)
+                        icon: fcmPostModel.likes
+                                .contains(controller.currentUser!.uid)
                             ? const Icon(
                                 Icons.favorite,
                                 color: Colors.red,
@@ -142,7 +183,8 @@ class MainPostItem extends StatelessWidget {
                       icon: const Icon(
                         Icons.comment_outlined,
                       ),
-                      onPressed: ()=>controller.onComments(fcmPostModel: fcmPostModel)),
+                      onPressed: () =>
+                          controller.onComments(fcmPostModel: fcmPostModel)),
                   IconButton(
                       icon: const Icon(
                         Icons.send,
@@ -197,7 +239,7 @@ class MainPostItem extends StatelessWidget {
                     InkWell(
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 4),
-                          child:  Text(
+                          child: Text(
                             'View all ${fcmPostModel.commentLen} comments',
                             style: const TextStyle(
                               fontSize: 16,
@@ -205,7 +247,8 @@ class MainPostItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        onTap: () => controller.onComments(fcmPostModel: fcmPostModel)),
+                        onTap: () =>
+                            controller.onComments(fcmPostModel: fcmPostModel)),
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 4),
                       child: Text(

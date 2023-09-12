@@ -54,7 +54,7 @@ class AppBindings implements Bindings {
     Get.lazyPut(() => RegisterController(), fenix: true);
     Get.lazyPut(() => HomeController(), fenix: true);
     Get.lazyPut(() => MainController(), fenix: true);
-    Get.lazyPut(() => SearchController(), fenix: true);
+    Get.lazyPut(() => SearchViewController(), fenix: true);
     Get.lazyPut(() => AddPostController(), fenix: true);
     Get.lazyPut(() => FavouriteController(), fenix: true);
     Get.lazyPut(() => ProfileController(), fenix: true);
