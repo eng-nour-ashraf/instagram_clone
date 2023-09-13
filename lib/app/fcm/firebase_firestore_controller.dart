@@ -57,6 +57,14 @@ class FirebaseFireStoreController {
         .get();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> onGetUserPosts(
+      {required String uid}) {
+    return fireStore
+        .collection(collectionPosts)
+        .where('uid', isEqualTo: uid)
+        .snapshots();
+  }
+
   Stream<QuerySnapshot<Map<String, dynamic>>> onGetPostComments(
       {required String postId}) {
     return fireStore
@@ -102,6 +110,15 @@ class FirebaseFireStoreController {
         .collection(collectionPosts)
         .doc(fcmPostModel.postId)
         .update(fcmPostModel.toJson());
+  }
+
+  Future<void> onUpdateUser({
+    required FCMUserModel fcmUserModel,
+  }) async {
+    return await fireStore
+        .collection(collectionUsers)
+        .doc(fcmUserModel.uid)
+        .update(fcmUserModel.toJson());
   }
 
   Future<void> onDeletePost({

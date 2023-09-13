@@ -12,6 +12,7 @@ import 'package:instagram_clone/modules/pages/search/search_controller.dart';
 
 import '../../modules/pages/add_post/add_post_controller.dart';
 import '../../modules/pages/login/login_controller.dart';
+import '../../modules/pages/users_profile/users_profile_controller.dart';
 import '../alerts/dialog_controller.dart';
 import '../alerts/snackbar_controller.dart';
 import '../fcm/firebase_firestore_controller.dart';
@@ -57,7 +58,8 @@ class AppBindings implements Bindings {
     Get.lazyPut(() => SearchViewController(), fenix: true);
     Get.lazyPut(() => AddPostController(), fenix: true);
     Get.lazyPut(() => FavouriteController(), fenix: true);
-    Get.lazyPut(() => ProfileController(), fenix: true);
+    Get.lazyPut(() => ProfileController(), fenix: true,);
     Get.lazyPut(() => CommentsController(), fenix: true);
+    Get.lazyPut(() => UsersProfileController(),fenix: true);
   }
 }

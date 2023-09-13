@@ -8,19 +8,21 @@ import 'package:instagram_clone/app/fcm/firebase_auth_controller.dart';
 import 'package:instagram_clone/app/fcm/firebase_firestore_controller.dart';
 import 'package:instagram_clone/app/fcm/models/fcm_post_model.dart';
 import 'package:instagram_clone/app/fcm/models/fcm_user_model.dart';
-import 'package:instagram_clone/app/routes/app_routes.dart';
 import 'package:instagram_clone/app/utils/utils_controller.dart';
+import 'package:instagram_clone/modules/pages/profile/profile_controller.dart';
 
 import '../../../app/alerts/snackbar_controller.dart';
 import '../../../app/log/log_controller.dart';
+import '../../../app/routes/app_routes.dart';
 
-class ProfileController extends gt.GetxController {
+class UsersProfileController extends gt.GetxController {
   //  controllers
   LogController logController = gt.Get.find();
   FirebaseAuthController firebaseAuthController = gt.Get.find();
   FirebaseFireStoreController firebaseFireStoreController = gt.Get.find();
   SnackBarController snackBarController = gt.Get.find();
   UtilsController utilsController = gt.Get.find();
+
 
   //***************************************************************************************************************
 
@@ -39,8 +41,8 @@ class ProfileController extends gt.GetxController {
 
   //  getX Ids
 
-  String gtXIDProfileInfo = 'Profile-Info';
-  String gtXIDProfileList = 'Profile-List';
+  String gtXIDUsersProfileInfo = 'UsersProfile-Info';
+  String gtXIDUsersProfileList = 'UsersProfile-List';
 
   //***************************************************************************************************************
 
@@ -48,20 +50,20 @@ class ProfileController extends gt.GetxController {
 
   @override
   void onInit() {
-    logController.onRed(msg: 'init Profile');
+    logController.onRed(msg: 'init Users Profile');
     onGetAppUser();
     super.onInit();
   }
 
   @override
   void onReady() {
-    logController.onRed(msg: 'ready Profile');
+    logController.onRed(msg: 'ready Users Profile');
     super.onReady();
   }
 
   @override
   void onClose() {
-    logController.onRed(msg: 'close Profile');
+    logController.onRed(msg: 'close Users Profile');
     onGetUsersPostsStream.cancel();
     super.onClose();
   }
@@ -69,6 +71,27 @@ class ProfileController extends gt.GetxController {
 //***************************************************************************************************************
 
 //  methods
+
+  void onFollow() async {
+    if (appUserModel.following.contains(currentUserModel.uid)) {
+      appUserModel.following.remove(currentUserModel.uid);
+      currentUserModel.followers.remove(appUserModel.uid);
+    } else {
+      appUserModel.following.add(currentUserModel.uid);
+      currentUserModel.followers.add(appUserModel.uid);
+    }
+    try {
+      await firebaseFireStoreController.onUpdateUser(
+          fcmUserModel: appUserModel);
+      await firebaseFireStoreController.onUpdateUser(
+          fcmUserModel: currentUserModel);
+      ProfileController profileController = gt.Get.find();
+      profileController.onGetAppUser();
+      update([gtXIDUsersProfileInfo]);
+    } catch (err) {
+      snackBarController.onFailedSneakBar(text: err.toString());
+    }
+  }
 
   Future<void> onSignOut() async {
     try {
@@ -83,7 +106,7 @@ class ProfileController extends gt.GetxController {
   Future<void> onGetUsersPosts() async {
     try {
       appStatus2 = AppStatus.loading;
-      update([gtXIDProfileList]);
+      update([gtXIDUsersProfileList]);
       onGetUsersPostsStream = firebaseFireStoreController
           .onGetUserPosts(uid: currentUserModel.uid)
           .listen((event) {
@@ -91,26 +114,28 @@ class ProfileController extends gt.GetxController {
             .map((element) => FCMPostModel.fromSnap(element))
             .toList();
         appStatus2 = AppStatus.success;
-        update([gtXIDProfileList, gtXIDProfileInfo]);
+        update([gtXIDUsersProfileList, gtXIDUsersProfileInfo]);
       });
       appStatus2 = AppStatus.success;
-      update([gtXIDProfileList]);
+      update([gtXIDUsersProfileList]);
     } catch (err) {
       appStatus2 = AppStatus.failed;
-      update([gtXIDProfileList]);
+      update([gtXIDUsersProfileList]);
     }
   }
 
   Future<void> onGetAppUser() async {
     try {
       appStatus = AppStatus.loading;
-      update([gtXIDProfileInfo]);
+      update([gtXIDUsersProfileInfo]);
       currentUser = firebaseAuthController.onGetCurrentUserAuth();
       appUserModel = await firebaseFireStoreController.onGetUserData(
           uid: currentUser!.uid);
-      currentUserModel = appUserModel;
+      currentUserModel = gt.Get.arguments as FCMUserModel;
+      currentUserModel = await firebaseFireStoreController.onGetUserData(
+          uid: currentUserModel.uid);
       appStatus = AppStatus.success;
-      update([gtXIDProfileInfo]);
+      update([gtXIDUsersProfileInfo]);
       onGetUsersPosts();
     } catch (err) {
       snackBarController.onFailedSneakBar(text: err.toString());

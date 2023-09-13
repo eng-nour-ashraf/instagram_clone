@@ -28,4 +28,10 @@ final Map<String, String> en = {
   LocalKeys.searchUsers: 'Search User!',
   LocalKeys.noComments: 'No Comments',
   LocalKeys.noUsers: 'No Users',
+  LocalKeys.signOut: 'Sign Out',
+  LocalKeys.follow: 'Follow',
+  LocalKeys.unFollow: 'UnFollow',
+  LocalKeys.followers: 'Followers',
+  LocalKeys.following: 'Following',
+  LocalKeys.posts: 'Posts',
 };

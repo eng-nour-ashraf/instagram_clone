@@ -137,7 +137,7 @@ class MainController extends gt.GetxController {
           controller: this,
           postId : postId,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         borderRadius: 20);
   }
 

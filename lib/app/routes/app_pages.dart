@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:instagram_clone/modules/pages/comments/comments_view.dart';
 import 'package:instagram_clone/modules/pages/home/home_view.dart';
+import 'package:instagram_clone/modules/pages/profile/profile_view.dart';
+import 'package:instagram_clone/modules/pages/users_profile/users_profile_view.dart';
 
 import '../../modules/pages/login/login_view.dart';
 import '../../modules/pages/register/register_view.dart';
@@ -21,6 +23,10 @@ class AppPages {
     GetPage(
       name: Routes.home,
       page: () => const HomeView(),
+    ),
+    GetPage(
+      name: Routes.usersProfile,
+      page: () => const UsersProfileView(),
     ),
     GetPage(
       name: Routes.comments,

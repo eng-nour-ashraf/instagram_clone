@@ -23,6 +23,10 @@ class FirebaseAuthController {
     );
   }
 
+  Future<void> onSignOut() async {
+    await _auth.signOut();
+  }
+
   User? onGetCurrentUserAuth() {
     return _auth.currentUser;
   }

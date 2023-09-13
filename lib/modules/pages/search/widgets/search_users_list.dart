@@ -7,6 +7,7 @@ import 'package:instagram_clone/modules/pages/comments/comments_controller.dart'
 import 'package:instagram_clone/modules/pages/comments/widgets/comments_list_item.dart';
 import 'package:instagram_clone/modules/pages/main/main_controller.dart';
 import 'package:instagram_clone/modules/pages/search/search_controller.dart';
+import 'package:instagram_clone/modules/pages/search/widgets/search_grid.dart';
 import 'package:instagram_clone/modules/pages/search/widgets/search_users_list_item.dart';
 import '../../../general_widgets/app_loading.dart';
 
@@ -21,26 +22,31 @@ class SearchUsersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GetBuilder(id: controller.gtXIDUsersList,builder: (SearchViewController c) {
-        return controller.appStatus == AppStatus.loading
-            ? const AppLoadingWidget(
-                color: Colors.black,
-              )
-            : controller.usersList.isNotEmpty
-                ? ListView.builder(
-                    itemCount: controller.usersList.length,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 15),
-                    itemBuilder: (BuildContext context, int index) {
-                      return SearchUsersListItem(controller: controller,user : controller.usersList[index]);
-                    },
+      child: GetBuilder(
+          id: controller.gtXIDUsersList,
+          builder: (SearchViewController c) {
+            return controller.appStatus == AppStatus.loading
+                ? const AppLoadingWidget(
+                    color: Colors.black,
                   )
-                : Center(
-                    child: Text(
-                    LocalKeys.noUsers.tr,
-                    style: const TextStyle(fontSize: 30),
-                  ));
-      }),
+                : controller.usersList.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: controller.usersList.length,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 15),
+                        itemBuilder: (BuildContext context, int index) {
+                          return SearchUsersListItem(
+                              controller: controller,
+                              user: controller.usersList[index]);
+                        },
+                      )
+                    : SearchGrid(controller: controller);
+            // Center(
+            //             child: Text(
+            //             LocalKeys.noUsers.tr,
+            //             style: const TextStyle(fontSize: 30),
+            //           ));
+          }),
     );
   }
 }

@@ -25,4 +25,10 @@ class LocalKeys {
   static const searchUsers = 'searchUsers';
   static const noUsers = 'noUsers';
   static const noComments = 'noComments';
+  static const signOut = 'signOut';
+  static const follow = 'follow';
+  static const unFollow = 'unFollow';
+  static const followers = 'followers';
+  static const following = 'following';
+  static const posts = 'posts';
 }

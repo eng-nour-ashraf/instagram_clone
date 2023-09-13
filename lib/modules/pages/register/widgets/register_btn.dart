@@ -15,12 +15,14 @@ class RegisterBtn extends StatelessWidget {
       width: controller.utilsController.onGetWidth(),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          backgroundColor:Colors.black,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
+
         ),
         onPressed: controller.onRegister,
-        child: Text(LocalKeys.signUp.tr),
+        child: Text(LocalKeys.signUp.tr,style: const TextStyle(color: Colors.white)),
       ),
     );
   }

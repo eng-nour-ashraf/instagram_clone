@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/app/translations/locale_keys.dart';
 import '../main_controller.dart';
 
@@ -22,6 +21,7 @@ class MainDeleteDialog extends StatelessWidget {
           style: const TextStyle(
               fontSize: 17,
               height: 1.5,
+              color: Colors.white,
               fontWeight: FontWeight.bold),
         ),
         const SizedBox(
@@ -29,6 +29,7 @@ class MainDeleteDialog extends StatelessWidget {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               )),
@@ -39,7 +40,7 @@ class MainDeleteDialog extends StatelessWidget {
             child: Center(
               child: Text(
                 LocalKeys.delete.tr,
-                style: const TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -49,6 +50,7 @@ class MainDeleteDialog extends StatelessWidget {
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               )),
@@ -59,7 +61,7 @@ class MainDeleteDialog extends StatelessWidget {
             child: Center(
               child: Text(
                 LocalKeys.cancel.tr,
-                style: const TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),
               ),
             ),
           ),

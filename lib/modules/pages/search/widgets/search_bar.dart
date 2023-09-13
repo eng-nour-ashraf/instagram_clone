@@ -18,6 +18,7 @@ class SearchViewBar extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(15.0),
           child: TextFormField(
+            controller: controller.searchController,
             onChanged: controller.onSearchBarChange,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(

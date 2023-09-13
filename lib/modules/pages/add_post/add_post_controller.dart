@@ -81,7 +81,7 @@ class AddPostController extends gt.GetxController {
         widget: AddPostImgDialog(
           controller: this,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         borderRadius: 20);
   }
 
